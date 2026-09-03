@@ -1,76 +1,77 @@
 # ai-windows
 
-Agent rules and skills for frontend work with **Claude Code**. Canonical content lives in two folders — root config files point here; they do not duplicate rule or skill text.
+Agent rules and skills for frontend work with **Claude Code**. Canonical content lives in `rules/` and `skills/` — client projects wire them up via global `~/.claude` symlinks (this repo does **not** track `.claude/`).
 
 ## Layout
 
 ```
 ai-windows/
 ├── README.MD
+├── .gitignore                      ← excludes .claude/
 ├── rules/                          ← MUST conventions (.md + examples)
-│   ├── frontend-general.md        ← alwaysApply: code style, commits, timezone/data contracts
-│   ├── frontend-testing.md        ← globs: **/*-test.js
+│   ├── frontend-general.md
+│   ├── vue-feature-architecture.md
+│   ├── tailwind.md
+│   ├── frontend-accessibility.md
+│   ├── frontend-testing.md
 │   ├── frontend-testing-examples.md
-│   ├── tailwind.md                ← globs: **/*.{vue,html,jsx,tsx}
-│   └── vue-feature-architecture.md ← globs: **/*.vue
+│   └── commit-messages.md
 └── skills/                         ← task workflows (on demand)
-    ├── commit-message/
-    ├── commit-and-push/
-    ├── frontend-testing/
-    └── pr-review/
+    ├── implement-changes/
+    ├── write-unit-tests/
+    ├── review-changes/
+    └── commit-changes/
 ```
 
 ## Rules index
 
 | File | Scope | Summary |
 |---|---|---|
-| `frontend-general.md` | Always | Code style, JSDoc, commit format `[TICKET-ID]: …`, timezone/data contracts |
-| `frontend-testing.md` | `**/*-test.js` | AAA, BDD, `data-test-id` selectors, mocking, design-system stubs |
+| `frontend-general.md` | Always | Code style, rules index, timezone/data contracts |
+| `vue-feature-architecture.md` | `**/*.vue` | Feature module boundaries, service casing, platform access |
+| `tailwind.md` | `**/*.{vue,html,jsx,tsx}` | Tailwind utilities, `rem` sizing, CSS module naming |
+| `frontend-accessibility.md` | Markup files | `id`, ARIA, `data-test-id` |
+| `frontend-testing.md` | `**/*-test.js` | AAA, BDD, selectors, mocking, design-system stubs |
 | `frontend-testing-examples.md` | Reference | BDD naming, selector helpers, HTTP assertions |
-| `tailwind.md` | `**/*.{vue,html,jsx,tsx}` | Tailwind utilities, `design-platform`, `data-style`, `rem` sizing, CSS module naming |
-| `vue-feature-architecture.md` | `**/*.vue` | Feature module boundaries, service casing, defensive platform access |
+| `commit-messages.md` | On demand | `[TICKET-ID]: …` format, branch naming, PR body |
 
-See `rules/README.MD` for rules vs skills and Claude setup.
+See `rules/README.MD` for rules vs skills and the full catalog.
 
 ## Skills index
 
 | Skill | Trigger |
 |---|---|
-| `commit-message` | Drafting commit messages |
-| `commit-and-push` | Stage, commit, push to `origin` |
-| `frontend-testing` | Writing or reviewing `*-test.js` tests |
-| `pr-review` | PR / code review checklist |
+| `implement-changes` | Coding features, fixes, or ticket work |
+| `write-unit-tests` | Writing or updating `*-test.js` files |
+| `review-changes` | PR / code review |
+| `commit-changes` | Stage, commit, optional push to `origin` |
 
-See `skills/README.MD` for skill structure and symlinks.
+See `skills/README.MD` for skill structure and global setup.
 
-## Claude Code setup
+## Claude Code setup (global)
 
-### Router (`.claude/CLAUDE.md`)
+Run from this repo root after clone or update:
 
-Keep the project router thin — point at canonical folders:
+```bash
+mkdir -p ~/.claude/skills/{commit-changes,implement-changes,write-unit-tests,review-changes}
+
+ln -sfn "$PWD/skills/commit-changes/SKILL.md" ~/.claude/skills/commit-changes/SKILL.md
+ln -sfn "$PWD/skills/implement-changes/SKILL.md" ~/.claude/skills/implement-changes/SKILL.md
+ln -sfn "$PWD/skills/write-unit-tests/SKILL.md" ~/.claude/skills/write-unit-tests/SKILL.md
+ln -sfn "$PWD/skills/review-changes/SKILL.md" ~/.claude/skills/review-changes/SKILL.md
+```
+
+In each **client project**, add a thin `.claude/CLAUDE.md` router (local to that project — not tracked in this repo):
 
 ```markdown
 Before writing or modifying frontend code, you MUST read and strictly adhere
-to all rules in `rules/`.
+to all rules in `<path-to-ai-windows>/rules/`.
 
-For task-specific workflows (tests, commits, PR review), follow the matching
-skill in `skills/`.
+For task-specific workflows, follow skills in `<path-to-ai-windows>/skills/`
+(e.g. implement-changes, write-unit-tests, review-changes, commit-changes).
 ```
 
-### Skills symlinks
-
-Run from this repo root:
-
-```bash
-mkdir -p .claude/skills/{commit-and-push,commit-message,frontend-testing,pr-review}
-
-ln -sf "$PWD/skills/commit-and-push/SKILL.md" .claude/skills/commit-and-push/SKILL.md
-ln -sf "$PWD/skills/commit-message/SKILL.md" .claude/skills/commit-message/SKILL.md
-ln -sf "$PWD/skills/frontend-testing/SKILL.md" .claude/skills/frontend-testing/SKILL.md
-ln -sf "$PWD/skills/pr-review/SKILL.md" .claude/skills/pr-review/SKILL.md
-```
-
-Optional — global skills (same commands with `~/.claude/skills/` instead of `.claude/skills/`).
+Replace `<path-to-ai-windows>` with the absolute path to this repo on your machine.
 
 ## Git conventions (this workspace)
 

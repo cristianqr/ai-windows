@@ -2,61 +2,45 @@
 
 Skills define **workflows and procedures** the AI agent follows when performing a specific task. They answer: *"How do I complete this job correctly?"*
 
+## Skill lineup
+
+| Skill | Trigger | Related rules |
+|---|---|---|
+| `implement-changes/` | Coding a ticket, bug fix, or feature | `frontend-general`, `vue-feature-architecture`, `tailwind`, `frontend-accessibility` |
+| `write-unit-tests/` | Writing or updating `*-test.js` | `frontend-testing`, `frontend-testing-examples` |
+| `review-changes/` | PR or diff review | All relevant `rules/` |
+| `commit-changes/` | Commit, push, or draft commit message | `commit-messages` |
+
 ## What skills are
 
-- **Task playbooks** — step-by-step checklists, templates, and decision trees.
-- **On-demand** — loaded when the task matches the skill's description (e.g. writing tests, creating commits, reviewing PRs).
+- **Task playbooks** — step-by-step checklists and decision trees.
+- **On-demand** — loaded when the task matches the skill's description.
 - **Procedural tone** — written as "when doing X, follow these steps…".
 
-## What belongs here
+## What belongs here vs rules
 
-| Put in **skills** | Examples |
-|---|---|
-| Multi-step workflows with decision points | PR review checklist, deploy procedure |
-| Tasks that require reading context first | Analyze a git diff, then format a commit message |
-| Long playbooks better loaded on demand | Test review process with examples |
+**Use rules when** the constraint applies whenever certain **files** are edited — scope with globs instead of putting MUST conventions in skills.
 
-## What does **not** belong here
+**Use skills when** the work is **task-triggered** (implement, review, commit) and involves steps, context gathering, or branching logic.
 
-- **Mandatory conventions** — even if task-specific, if it is a MUST it usually belongs in **rules**, scoped to the relevant files (see below).
-- Always-on coding standards — use `rules/` instead.
-
-## Gray area: rules vs skills
-
-| Guideline | As a **rule** (scoped) | As a **skill** (on demand) |
-|---|---|---|
-| AAA / BDD in tests | `**/*-test.js` → "MUST follow AAA, never assert internal state" | "When writing tests, follow this methodology…" |
-| Commit message format | "All commits MUST match `[TICKET-ID]: …`" | "When asked to write a commit, analyze the diff and apply this template…" |
-| PR review structure | Rarely a rule — no file glob triggers it | "When reviewing a PR, follow this checklist…" |
-
-**Use rules when** the constraint applies whenever certain **files** are edited — even if the content is long. Scope with globs instead of putting MUST conventions in skills.
-
-**Use skills when** the work is **task-triggered** (review this PR, format this commit) and involves steps, context gathering, or branching logic — not just "never do X."
+See the gray-area table in `rules/README.MD` and `skills/README.MD` (legacy section below) for examples.
 
 ## Folder layout
-
-Each skill is a directory with a `SKILL.md` file:
 
 ```
 skills/
 ├── README.MD
-├── commit-message/
+├── implement-changes/
 │   └── SKILL.md
-├── commit-and-push/
+├── write-unit-tests/
 │   └── SKILL.md
-├── frontend-testing/
+├── review-changes/
 │   └── SKILL.md
-└── pr-review/
+└── commit-changes/
     └── SKILL.md
 ```
 
-Symlink into Claude Code (from repo root):
-
-```
-.claude/skills/<skill>/SKILL.md  →  ../../skills/<skill>/SKILL.md
-```
-
-See root `README.MD` for symlink commands.
+This repo does **not** track `.claude/` — symlink skills globally (see below).
 
 ### SKILL.md structure
 
@@ -74,15 +58,6 @@ Step-by-step guidance for the agent.
 
 The `description` field is critical — the agent uses it to decide when to apply the skill.
 
-## Index / router pattern
-
-Root config (`.claude/CLAUDE.md`) references skills by path; it does not duplicate skill content:
-
-```markdown
-For task-specific workflows (tests, commits, PR review), follow the matching
-skill in `skills/`.
-```
-
 ## Skills vs rules
 
 | | **Rules** | **Skills** |
@@ -93,11 +68,27 @@ skill in `skills/`.
 
 See `rules/README.MD` for the rules definition.
 
-## Practical split for this repo
+## Gray area: rules vs skills
 
-| Skill | Purpose | Related rules |
+| Guideline | As a **rule** (scoped) | As a **skill** (on demand) |
 |---|---|---|
-| `commit-message/` | Draft messages; branch name = ticket code; format `[TICKET-ID]: …` | `rules/frontend-general.md` |
-| `commit-and-push/` | Inspect, stage, commit, push to `origin` | `commit-message` |
-| `frontend-testing/` | Write/review tests; discover Jest setup from the repo | `rules/frontend-testing.md`, `rules/frontend-testing-examples.md` |
-| `pr-review/` | PR checklist — config, a11y, testing, component design | `rules/tailwind.md`, `rules/frontend-testing.md` |
+| AAA / BDD in tests | `**/*-test.js` → MUST conventions | `write-unit-tests` workflow |
+| Commit message format | `commit-messages.md` | `commit-changes` workflow |
+| PR review structure | Rarely a rule | `review-changes` checklist |
+
+## Index / router pattern
+
+Client projects use a thin `.claude/CLAUDE.md` router that points at this repo's `rules/` and `skills/` — see root `README.MD`. Do not duplicate skill content in the router.
+
+## Global Claude Code skills
+
+```bash
+mkdir -p ~/.claude/skills/{commit-changes,implement-changes,write-unit-tests,review-changes}
+
+ln -sfn "$PWD/skills/commit-changes/SKILL.md" ~/.claude/skills/commit-changes/SKILL.md
+ln -sfn "$PWD/skills/implement-changes/SKILL.md" ~/.claude/skills/implement-changes/SKILL.md
+ln -sfn "$PWD/skills/write-unit-tests/SKILL.md" ~/.claude/skills/write-unit-tests/SKILL.md
+ln -sfn "$PWD/skills/review-changes/SKILL.md" ~/.claude/skills/review-changes/SKILL.md
+```
+
+Run from this repo root.

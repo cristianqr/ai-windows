@@ -32,3 +32,7 @@ structured around feature modules (e.g. `src/features/<feature>/`).
    fields on the data object and read those directly.
 4. **Defensive platform access** — MFEs may run standalone, embedded in a native WebView shell, or
    in Electron. Don't assume any single host's platform APIs are present — feature-detect or guard.
+
+## Accessibility
+
+Follow `rules/frontend-accessibility.md` for markup accessibility MUSTs.

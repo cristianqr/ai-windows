@@ -1,18 +1,19 @@
 ---
-name: commit-and-push
-description: Stage, commit, and push changes to remote. Use when the user asks to commit, push, or ship current changes. Works across client projects — discover each repo's commit format from context.
+name: commit-changes
+description: Draft a commit message, stage, commit, and optionally push to origin. Use when the user asks to commit, push, ship, or write a commit message. Default is commit only — push only when explicitly requested.
 ---
 
-# Commit and Push
+# Commit Changes
 
-Generic workflow for any git repo. **Do not assume** a specific commit format — discover it per project. Push to **`origin`** unless the user names a different remote.
+Workflow for staging, committing, and optionally pushing. Push to **`origin`** unless the user names a different remote.
 
-## Discover project conventions (before commit)
+Apply commit MUSTs in `rules/commit-messages.md`.
 
-1. Run `git log -5 --format='%s'` and **match the existing commit message style** (prefix, ticket ID, scopes, etc.).
-2. Check for project docs: `CONTRIBUTING.md`, `COMMIT_CONVENTION.md`, `.github/pull_request_template.md`.
-3. If the workspace includes `skills/commit-message/SKILL.md`, use it **when the repo's log format matches**.
-4. Resolve **ticket/issue ID** from the user request, branch name, or recent commits. If required by the project and missing, **ask the user** — do not guess.
+## Triggers
+
+- `commit` — draft, stage, commit; no push.
+- `commit and push` / `push` — draft, stage, commit, push to `origin`.
+- `write a commit message` — draft and show only.
 
 ## Workflow
 
@@ -20,16 +21,16 @@ Generic workflow for any git repo. **Do not assume** a specific commit format �
    - `git status`
    - `git diff` (staged and unstaged)
    - `git log -5 --format='%s'`
-2. **Draft** — mandatory when context exists. Follow `skills/commit-message/SKILL.md` for format, ticket ID, and body content. **Show the drafted message before committing.**
+2. **Draft** — follow `rules/commit-messages.md`. Match the repo's log format. **Show the drafted message before committing.**
 3. **Stage** — `git add` only relevant files. Never stage `.env`, credentials, or secrets.
 4. **Commit** — pass the drafted subject/body via HEREDOC:
    ```bash
    git commit -m "$(cat <<'EOF'
-   <drafted message from skills/commit-message/SKILL.md>
+   <drafted message>
    EOF
    )"
    ```
-5. **Push** — first push on a branch: `git push -u origin HEAD`. After upstream is set: `git push`.
+5. **Push** (only when explicitly requested) — first push on a branch: `git push -u origin HEAD`. After upstream is set: `git push`.
 6. **Verify** — `git log -1 --format=full`; `git status` after push.
 
 ## Branch rename (when requested)

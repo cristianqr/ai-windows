@@ -1,15 +1,17 @@
 ---
-name: pr-review
-description: Review frontend PRs for config, a11y, testing, and Vue conventions. Use when reviewing pull requests, code changes, or when the user asks for a code review.
+name: review-changes
+description: Review frontend code changes for config, a11y, testing, and Vue conventions. Use when reviewing pull requests, diffs, or when the user asks for a code review.
 ---
 
-# Frontend PR Review
+# Review Changes
 
-Before reviewing, apply all relevant rules in `rules/` (especially `tailwind.md`, `frontend-testing.md`).
+Review workflow for frontend PRs and local diffs — config, a11y, tests, Vue conventions, and PR hygiene.
+
+Before reviewing, apply all relevant rules in `rules/` (especially `vue-feature-architecture.md`, `tailwind.md`, `frontend-accessibility.md`, `frontend-testing.md`).
 
 ## Workflow
 
-1. Read the PR diff and description — identify purpose, scope, and ticket.
+1. Read the diff and description — identify purpose, scope, and ticket.
 2. Check **one PR = one purpose** — flag unrelated changes (dev-server, deps, refactors).
 3. Review against the checklist below and rule MUSTs.
 4. Format feedback by severity:
@@ -22,6 +24,7 @@ Before reviewing, apply all relevant rules in `rules/` (especially `tailwind.md`
 - [ ] Every user-facing string is in config or from the API — none hardcoded in templates.
 - [ ] Labels are natural case; CSS handles uppercase.
 - [ ] No `aria-label` on non-interactive elements or duplicating visible text.
+- [ ] Sub-labels / decorative text carry `aria-hidden="true"`.
 - [ ] Tests use `shallowMount` (unless integration warrants `mount`) + `data-test-id` queries.
 - [ ] Jest mocks use `.mockImplementation()`, not reassignment.
 - [ ] No `eslint-disable` for a fixable rule.
@@ -31,6 +34,8 @@ Before reviewing, apply all relevant rules in `rules/` (especially `tailwind.md`
 - [ ] Single source of truth for arrays / enums referenced twice.
 - [ ] `git mv` used for legacy renames to preserve history.
 - [ ] Spec/filenames include ticket code when scoped to one ticket.
+- [ ] Feature module boundaries respected (`pages/containers/components/services/logic/store`).
+- [ ] Key-case conversion only in service layer, not components or `logic/`.
 
 ## Config vs code
 
@@ -41,8 +46,13 @@ Before reviewing, apply all relevant rules in `rules/` (especially `tailwind.md`
 
 ## Testing
 
+- Outermost `describe` matches component/service name (no file extension, no Jira ticket names).
+- No assertions on `wrapper.vm` internal state.
+- Each `it()` tests one behavior; edge cases and error paths covered.
+- HTTP tests verify call args and post-response DOM state.
 - No dedicated config schema tests — component tests already cover missing keys.
 - Prefer integration tests only when child behavior is under test.
+- For test MUSTs, apply `rules/frontend-testing.md`.
 
 ## Component design & reuse
 
@@ -57,4 +67,4 @@ Before reviewing, apply all relevant rules in `rules/` (especially `tailwind.md`
 
 ## PR discipline
 
-- Match naming/style of siblings; `.spec.js` not  `-test.js`; follow repo import order.
+- Match naming/style of siblings; `-test.js` not `.spec.js`; follow repo import order.

@@ -8,6 +8,8 @@ alwaysApply: false
 
 Apply whenever writing or editing `*-test.js` files in MFE repos.
 
+For the authoring workflow, see `skills/write-unit-tests/SKILL.md`. For examples, see `rules/frontend-testing-examples.md`.
+
 ## MUST practices
 
 1. **Behavior over implementation** — assert what the component does from the user's perspective (inputs, outputs, emitted events, DOM changes). Do NOT test internal data properties or private methods.

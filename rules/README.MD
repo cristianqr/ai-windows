@@ -2,6 +2,29 @@
 
 Rules define **constraints and conventions** the AI agent must follow when writing or modifying code. They answer: *"What must always be true in this project?"*
 
+For task workflows (implement, test, review, commit), see `skills/`.
+
+## Rule catalog
+
+| Rule | Trigger | Scope |
+|---|---|---|
+| [frontend-general.md](./frontend-general.md) | `alwaysApply: true` | All frontend work — code style, rules index |
+| [vue-feature-architecture.md](./vue-feature-architecture.md) | `**/*.vue` | Feature module boundaries, services, platform access |
+| [tailwind.md](./tailwind.md) | `*.{vue,html,jsx,tsx}` | Tailwind utilities, CSS modules, sizing |
+| [frontend-accessibility.md](./frontend-accessibility.md) | `*.{vue,html,jsx,tsx}` | `id`, ARIA, test selectors |
+| [frontend-testing.md](./frontend-testing.md) | `**/*-test.js` | Unit test MUSTs (AAA, BDD, mocks, design-system stubs) |
+| [frontend-testing-examples.md](./frontend-testing-examples.md) | Reference (not auto-loaded) | Selector helpers, HTTP assertion examples |
+| [commit-messages.md](./commit-messages.md) | On demand | Commit message format, branch naming |
+
+## Rules ↔ skills
+
+| Rules (MUSTs) | Skill (workflow) |
+|---|---|
+| `frontend-general`, `vue-feature-architecture`, `tailwind`, `frontend-accessibility` | `implement-changes` |
+| `frontend-testing` | `write-unit-tests` |
+| All relevant rules | `review-changes` |
+| `commit-messages` | `commit-changes` |
+
 ## What rules are
 
 - **Standing standards** — naming, styling, file structure, testing, etc.
@@ -19,21 +42,21 @@ Rules define **constraints and conventions** the AI agent must follow when writi
 
 ## What does **not** belong here
 
-- **Task workflows** that require gathering context or branching steps (use `skills/` instead) — e.g. "review this PR end-to-end", "analyze diff then write commit message."
+- **Task workflows** that require gathering context or branching steps (use `skills/` instead).
 - If a guideline is MUST whenever certain **files** are edited, it belongs here (scoped with globs), even if it looks like a "methodology." See the gray-area table in `skills/README.MD`.
 
 ## Folder layout
 
-This folder is the **single source of truth** for rules:
-
 ```
 rules/
 ├── README.MD
-├── frontend-general.md        ← alwaysApply: code style, commits, timezone/data contracts
-├── frontend-testing.md        ← globs: **/*-test.js (AAA, BDD, selectors, mocking)
-├── frontend-testing-examples.md ← BDD and HTTP assertion examples
-├── tailwind.md                ← globs: **/*.{vue,html,jsx,tsx}
-└── vue-feature-architecture.md ← globs: **/*.vue (feature module boundaries, platform access)
+├── frontend-general.md        ← always on
+├── vue-feature-architecture.md
+├── tailwind.md
+├── frontend-accessibility.md
+├── frontend-testing.md
+├── frontend-testing-examples.md
+└── commit-messages.md
 ```
 
 Rule files use `.md` with YAML frontmatter:
@@ -46,26 +69,9 @@ alwaysApply: false
 ---
 ```
 
-## Rule summaries
-
-| File | `alwaysApply` / globs | Contents |
-|---|---|---|
-| `frontend-general.md` | `true` | Line wrapping (120 chars), braces, early returns, semantic naming, no speculative abstraction/shims, no ticket comments, JSDoc, commit format `[TICKET-ID]: …`, timezone/UTC data contracts |
-| `frontend-testing.md` | `**/*-test.js` | Behavior over implementation, `data-test-id`, AAA, BDD, mocking, `shallowMount`, design-system stub table |
-| `frontend-testing-examples.md` | — | Selector helpers, BDD `describe`/`it` naming, HTTP `toHaveBeenCalledWith` patterns |
-| `tailwind.md` | `**/*.{vue,html,jsx,tsx}` | `design-platform`, Tailwind utilities, `rem` sizing, `data-style` when ESLint requires it, CSS module naming |
-| `vue-feature-architecture.md` | `**/*.vue` | `pages/containers/components/services/logic/store` split, service-layer casing, structural data, defensive platform access |
-
 ## Claude Code setup
 
-Rules are loaded via the project router (`.claude/CLAUDE.md`) — see root `README.MD`. Point the agent at `rules/`; do not copy rule content into the router file.
-
-Example router text:
-
-```markdown
-Before writing or modifying frontend code, you MUST read and strictly adhere
-to all rules in `rules/`.
-```
+Point the agent at this repo's `rules/` from each client project's `.claude/CLAUDE.md` router — see root `README.MD`. Do not copy rule content into the router file.
 
 ## Rules vs skills
 
