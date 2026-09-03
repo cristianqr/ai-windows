@@ -1,11 +1,11 @@
 ---
 name: frontend-testing-methodology
-description: Workflow for writing and reviewing frontend unit tests. Use when writing, updating, or reviewing *-test.js files. Conventions are in rules/frontend-testing.mdc.
+description: Workflow for writing and reviewing frontend unit tests. Use when writing, updating, or reviewing *-test.js files. Conventions are in rules/frontend-testing.md.
 ---
 
 # Frontend Testing Workflow
 
-Before writing or reviewing tests, apply all MUST conventions in `rules/frontend-testing.mdc` (auto-loaded on `**/*-test.js`).
+Before writing or reviewing tests, apply all MUST conventions in `rules/frontend-testing.md` (auto-loaded on `**/*-test.js`).
 
 For repo-specific setup (Jest config, mount helpers, mocks), follow patterns in the repo under test — check `package.json`, `jest.config.js`, and sibling `__tests__/` files.
 

@@ -7,11 +7,12 @@ Agent rules and skills for frontend work with **Claude Code**. Canonical content
 ```
 ai-windows/
 ├── README.MD
-├── rules/                          ← MUST conventions (.mdc + examples)
-│   ├── frontend-general.mdc        ← alwaysApply: code style, commits
-│   ├── frontend-testing.mdc        ← globs: **/*-test.js
+├── rules/                          ← MUST conventions (.md + examples)
+│   ├── frontend-general.md        ← alwaysApply: code style, commits, timezone/data contracts
+│   ├── frontend-testing.md        ← globs: **/*-test.js
 │   ├── frontend-testing-examples.md
-│   └── tailwind.mdc                ← globs: **/*.{vue,html,jsx,tsx}
+│   ├── tailwind.md                ← globs: **/*.{vue,html,jsx,tsx}
+│   └── vue-feature-architecture.md ← globs: **/*.vue
 └── skills/                         ← task workflows (on demand)
     ├── commit-message/
     ├── commit-and-push/
@@ -23,10 +24,11 @@ ai-windows/
 
 | File | Scope | Summary |
 |---|---|---|
-| `frontend-general.mdc` | Always | Code style, JSDoc, commit format `[TICKET-ID]: …` |
-| `frontend-testing.mdc` | `**/*-test.js` | AAA, BDD, `data-test-id` selectors, mocking |
+| `frontend-general.md` | Always | Code style, JSDoc, commit format `[TICKET-ID]: …`, timezone/data contracts |
+| `frontend-testing.md` | `**/*-test.js` | AAA, BDD, `data-test-id` selectors, mocking, design-system stubs |
 | `frontend-testing-examples.md` | Reference | BDD naming, selector helpers, HTTP assertions |
-| `tailwind.mdc` | `**/*.{vue,html,jsx,tsx}` | Tailwind utilities, `design-platform`, `data-style`, `rem` sizing |
+| `tailwind.md` | `**/*.{vue,html,jsx,tsx}` | Tailwind utilities, `design-platform`, `data-style`, `rem` sizing, CSS module naming |
+| `vue-feature-architecture.md` | `**/*.vue` | Feature module boundaries, service casing, defensive platform access |
 
 See `rules/README.MD` for rules vs skills and Claude setup.
 

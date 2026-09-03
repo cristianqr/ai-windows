@@ -1,6 +1,6 @@
 # Frontend Testing — Examples
 
-Companion to `frontend-testing.mdc`.
+Companion to `frontend-testing.md`.
 
 ## Selector helpers
 

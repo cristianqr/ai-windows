@@ -37,6 +37,34 @@ Apply whenever writing or editing `*-test.js` files in MFE repos.
     - ✅ `context.getConfigById.mockImplementation((id) => ...)`
     - ❌ `context.getConfigById = jest.fn((id) => ...)`
 
+## Design System Components — do NOT mock manually
+
+Shared design-system (`sb-*`) components are typically already globally stubbed in the repo's
+test setup file (e.g. `test.setup.js`). Do **not** re-declare stubs for them inside individual spec
+files — doing so is redundant and can cause conflicts. Check the repo's test setup before adding a
+local stub; a common baseline looks like:
+
+| Component | Props | Emits |
+|---|---|---|
+| `sb-badge` | `variation` | — |
+| `sb-button` | — | — |
+| `sb-panel` | `variation` | — |
+| `sb-modal` | `active` | `close` |
+| `sb-select` | `options`, `modelValue` | `update:modelValue` |
+| `sb-text-input` | `value` | `update:value` |
+| `sb-paginator` | `page`, `rows`, `totalRecords`, `rowsPerPageOptions` | `page` |
+| `sb-tree-table` | `value` | — |
+| `sb-page` | — | — |
+| `sb-data-table` | `data`, `columnDefinitions` | `api-sort` |
+| `sb-multi-select` | `options`, `modelValue` | `update:modelValue` |
+| `sb-page-header` | `title`, `subTitle`, `breadcrumbs` | — |
+
+Also commonly available globally: a mocked toast service (`info`/`success`/`error`/`warning`/`clear`
+as `jest.fn()`), an `$t` i18n mock, and any other globally-provided service mocks the repo defines.
+
+If a specific test needs to override a stub's template or props (e.g. to expose a named slot),
+override only that component locally in the test's `stubs` option.
+
 ## Running tests locally
 
 Use the CI-equivalent command:

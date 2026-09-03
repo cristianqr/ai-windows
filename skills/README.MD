@@ -97,7 +97,7 @@ See `rules/README.MD` for the rules definition.
 
 | Skill | Purpose | Related rules |
 |---|---|---|
-| `commit-message/` | Draft messages; branch name = ticket code; format `[TICKET-ID]: …` | `rules/frontend-general.mdc` |
+| `commit-message/` | Draft messages; branch name = ticket code; format `[TICKET-ID]: …` | `rules/frontend-general.md` |
 | `commit-and-push/` | Inspect, stage, commit, push to `origin` | `commit-message` |
-| `frontend-testing/` | Write/review tests; discover Jest setup from the repo | `rules/frontend-testing.mdc`, `rules/frontend-testing-examples.md` |
-| `pr-review/` | PR checklist — config, a11y, testing, component design | `rules/tailwind.mdc`, `rules/frontend-testing.mdc` |
+| `frontend-testing/` | Write/review tests; discover Jest setup from the repo | `rules/frontend-testing.md`, `rules/frontend-testing-examples.md` |
+| `pr-review/` | PR checklist — config, a11y, testing, component design | `rules/tailwind.md`, `rules/frontend-testing.md` |

@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Code style
 
-1. **Wrap long lines** — break template attributes, object literals, and chained calls across multiple lines. Let Prettier handle formatting in MFE apps; do not hand-reformat unrelated code.
+1. **Maximum line length — 120 characters**, enforced by ESLint and pre-commit hooks. Break long template attributes, object literals, and chained calls across multiple lines to stay under it. Let Prettier handle formatting in MFE apps; do not hand-reformat unrelated code.
 2. **Braces are mandatory** — every `if`/`else`/`for`/`while` body MUST use `{}`, even single statements.
 3. **Preserve existing formatting** — never reformat or re-indent code you are not otherwise changing. A diff MUST show only lines relevant to the task.
 4. **Reuse before you build** — search for an existing component, composable, service, or logic module before writing a new one. Prefer extending an existing pattern over introducing a parallel one.
@@ -15,8 +15,16 @@ alwaysApply: true
 6. **Early return over nested conditionals** — in new code, guard-clause / early-return out of a function rather than wrapping the remaining body in an `if`/`else`.
    - ❌ `if (isValid) { doThing(); if (isReady) { doOther(); } }`
    - ✅ `if (!isValid) return; doThing(); if (!isReady) return; doOther();`
-7. **Comments explain WHY, not WHAT** — skip comments that restate what the code already says. Write comments only for non-obvious constraints, invariants, or workarounds. Comments MUST be in English.
-8. **No TypeScript — use JSDoc** — MFE repos are JavaScript-only. Document params, returns, and non-obvious shapes with JSDoc (`@param`, `@returns`, `@emits`). Do NOT introduce `.ts` files unless the repo already uses them.
+7. **No speculative abstraction** — don't introduce a shared helper, prop, or config option for a single call site "in case it's needed later." Three similar lines beat a premature abstraction.
+8. **No backwards-compatibility shims** — don't rename-and-reexport, leave `// removed` comments, or keep unused branches "just in case." If it's unused, delete it.
+9. **Comments explain WHY, not WHAT** — skip comments that restate what the code already says. Write comments only for non-obvious constraints, invariants, or workarounds. Comments MUST be in English.
+10. **Don't reference tickets/tasks in code** — no `// PIK-1234` or `// fix for X flow` comments in source. That context belongs in the PR description, not in code that outlives the ticket.
+11. **No TypeScript — use JSDoc** — MFE repos are JavaScript-only. Document params, returns, and non-obvious shapes with JSDoc (`@param`, `@returns`, `@emits`). Do NOT introduce `.ts` files unless the repo already uses them.
+
+## Timezone & data contracts
+
+- **Timezone-aware date bucketing** — when bucketing or comparing by calendar date, always convert through the relevant local timezone first. Never compare raw UTC date substrings directly.
+- **UTC is the wire format** — the frontend/backend contract is UTC. Only reformat the value for display; never mutate the underlying datetime value.
 
 ## Commit & PR conventions
 

@@ -5,7 +5,7 @@ description: Review frontend PRs for config, a11y, testing, and Vue conventions.
 
 # Frontend PR Review
 
-Before reviewing, apply all relevant rules in `rules/` (especially `tailwind.mdc`, `frontend-testing.mdc`).
+Before reviewing, apply all relevant rules in `rules/` (especially `tailwind.md`, `frontend-testing.md`).
 
 ## Workflow
 

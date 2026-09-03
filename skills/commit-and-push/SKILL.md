@@ -20,14 +20,12 @@ Generic workflow for any git repo. **Do not assume** a specific commit format �
    - `git status`
    - `git diff` (staged and unstaged)
    - `git log -5 --format='%s'`
-2. **Draft** — mandatory when context exists. Write a complete message in the **repo's format**. **Show the drafted message before committing.** If a required ticket ID is missing, ask for it only — do not ask the user to write the full message.
+2. **Draft** — mandatory when context exists. Follow `skills/commit-message/SKILL.md` for format, ticket ID, and body content. **Show the drafted message before committing.**
 3. **Stage** — `git add` only relevant files. Never stage `.env`, credentials, or secrets.
-4. **Commit** — pass the subject and optional body via HEREDOC:
+4. **Commit** — pass the drafted subject/body via HEREDOC:
    ```bash
    git commit -m "$(cat <<'EOF'
-   <subject in repo format>
-
-   Optional body explaining why.
+   <drafted message from skills/commit-message/SKILL.md>
    EOF
    )"
    ```

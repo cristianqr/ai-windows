@@ -29,13 +29,14 @@ This folder is the **single source of truth** for rules:
 ```
 rules/
 ├── README.MD
-├── frontend-general.mdc        ← alwaysApply: code style, commits
-├── frontend-testing.mdc        ← globs: **/*-test.js (AAA, BDD, selectors, mocking)
+├── frontend-general.md        ← alwaysApply: code style, commits, timezone/data contracts
+├── frontend-testing.md        ← globs: **/*-test.js (AAA, BDD, selectors, mocking)
 ├── frontend-testing-examples.md ← BDD and HTTP assertion examples
-└── tailwind.mdc                ← globs: **/*.{vue,html,jsx,tsx}
+├── tailwind.md                ← globs: **/*.{vue,html,jsx,tsx}
+└── vue-feature-architecture.md ← globs: **/*.vue (feature module boundaries, platform access)
 ```
 
-Rule files use `.mdc` with YAML frontmatter:
+Rule files use `.md` with YAML frontmatter:
 
 ```yaml
 ---
@@ -49,10 +50,11 @@ alwaysApply: false
 
 | File | `alwaysApply` / globs | Contents |
 |---|---|---|
-| `frontend-general.mdc` | `true` | Line wrapping, braces, early returns, semantic naming, JSDoc, commit format `[TICKET-ID]: …` |
-| `frontend-testing.mdc` | `**/*-test.js` | Behavior over implementation, `data-test-id`, AAA, BDD, mocking, `shallowMount` |
+| `frontend-general.md` | `true` | Line wrapping (120 chars), braces, early returns, semantic naming, no speculative abstraction/shims, no ticket comments, JSDoc, commit format `[TICKET-ID]: …`, timezone/UTC data contracts |
+| `frontend-testing.md` | `**/*-test.js` | Behavior over implementation, `data-test-id`, AAA, BDD, mocking, `shallowMount`, design-system stub table |
 | `frontend-testing-examples.md` | — | Selector helpers, BDD `describe`/`it` naming, HTTP `toHaveBeenCalledWith` patterns |
-| `tailwind.mdc` | `**/*.{vue,html,jsx,tsx}` | `design-platform`, Tailwind utilities, `rem` sizing, `data-style` when ESLint requires it |
+| `tailwind.md` | `**/*.{vue,html,jsx,tsx}` | `design-platform`, Tailwind utilities, `rem` sizing, `data-style` when ESLint requires it, CSS module naming |
+| `vue-feature-architecture.md` | `**/*.vue` | `pages/containers/components/services/logic/store` split, service-layer casing, structural data, defensive platform access |
 
 ## Claude Code setup
 

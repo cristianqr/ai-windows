@@ -29,6 +29,13 @@ Applies when editing component markup in any frontend repo that uses Tailwind an
   - ❌ `tracking-[0.00875rem]`
   - Values **≥ 1px** still use `rem` (e.g. `1px` → `tracking-[0.0625rem]` or `tracking-[1px]` is acceptable).
 
+## CSS Modules (when used)
+
+- Class names are **kebab-case** (e.g. `.summary-panel`); access via `$style['summary-panel']`, not
+  camelCase property access (`$style.summaryPanel`).
+- Prefer Tailwind utilities first — see above; CSS modules are for the rare case Tailwind can't
+  cover.
+
 ## Selectors — not for styling
 
 - **`data-test-id`** — test selectors only (`data-test-id="submit-button"`), never for styling.
