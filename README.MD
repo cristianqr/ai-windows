@@ -20,6 +20,7 @@ ai-windows/
     ├── implement-changes/
     ├── write-unit-tests/
     ├── review-changes/
+    ├── publish-pr-review/
     └── commit-changes/
 ```
 
@@ -44,6 +45,7 @@ See `rules/README.MD` for rules vs skills and the full catalog.
 | `implement-changes` | Coding features, fixes, or ticket work |
 | `write-unit-tests` | Writing or updating `*-test.js` files |
 | `review-changes` | PR / code review |
+| `publish-pr-review` | After review discussion, inline comments on the PR |
 | `commit-changes` | Stage, commit, optional push to `origin` |
 
 See `skills/README.MD` for skill structure and global setup.
@@ -53,12 +55,13 @@ See `skills/README.MD` for skill structure and global setup.
 Run from this repo root after clone or update:
 
 ```bash
-mkdir -p ~/.claude/skills/{commit-changes,implement-changes,write-unit-tests,review-changes}
+mkdir -p ~/.claude/skills/{commit-changes,implement-changes,write-unit-tests,review-changes,publish-pr-review}
 
 ln -sfn "$PWD/skills/commit-changes/SKILL.md" ~/.claude/skills/commit-changes/SKILL.md
 ln -sfn "$PWD/skills/implement-changes/SKILL.md" ~/.claude/skills/implement-changes/SKILL.md
 ln -sfn "$PWD/skills/write-unit-tests/SKILL.md" ~/.claude/skills/write-unit-tests/SKILL.md
 ln -sfn "$PWD/skills/review-changes/SKILL.md" ~/.claude/skills/review-changes/SKILL.md
+ln -sfn "$PWD/skills/publish-pr-review/SKILL.md" ~/.claude/skills/publish-pr-review/SKILL.md
 ```
 
 In each **client project**, add a thin `.claude/CLAUDE.md` router (local to that project — not tracked in this repo):
@@ -68,7 +71,7 @@ Before writing or modifying frontend code, you MUST read and strictly adhere
 to all rules in `<path-to-ai-windows>/rules/`.
 
 For task-specific workflows, follow skills in `<path-to-ai-windows>/skills/`
-(e.g. implement-changes, write-unit-tests, review-changes, commit-changes).
+(e.g. implement-changes, write-unit-tests, review-changes, publish-pr-review, commit-changes).
 ```
 
 Replace `<path-to-ai-windows>` with the absolute path to this repo on your machine.

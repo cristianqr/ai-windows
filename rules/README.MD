@@ -23,6 +23,7 @@ For task workflows (implement, test, review, commit), see `skills/`.
 | `frontend-general`, `vue-feature-architecture`, `tailwind`, `frontend-accessibility` | `implement-changes` |
 | `frontend-testing` | `write-unit-tests` |
 | All relevant rules | `review-changes` |
+| — | `publish-pr-review` |
 | `commit-messages` | `commit-changes` |
 
 ## What rules are

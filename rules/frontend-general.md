@@ -18,7 +18,7 @@ Applies to **Vue MFE** client projects. Match existing patterns in the target re
 | `*-test.js` | `rules/frontend-testing.md` |
 | Commit messages | `rules/commit-messages.md` |
 
-**Workflows** (procedures, not MUSTs): `skills/implement-changes`, `skills/write-unit-tests`, `skills/review-changes`, `skills/commit-changes`.
+**Workflows** (procedures, not MUSTs): `skills/implement-changes`, `skills/write-unit-tests`, `skills/review-changes`, `skills/publish-pr-review`, `skills/commit-changes`.
 
 ## Code style
 

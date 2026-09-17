@@ -18,6 +18,7 @@ Before reviewing, apply all relevant rules in `rules/` (especially `vue-feature-
    - 🔴 **Critical** — must fix before merge
    - 🟡 **Suggestion** — consider improving
    - 🟢 **Nice to have** — optional
+5. To put the agreed findings on the PR as inline comments after discussion, use `skills/publish-pr-review`.
 
 ## Quick checklist
 

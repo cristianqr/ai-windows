@@ -9,6 +9,7 @@ Skills define **workflows and procedures** the AI agent follows when performing 
 | `implement-changes/` | Coding a ticket, bug fix, or feature | `frontend-general`, `vue-feature-architecture`, `tailwind`, `frontend-accessibility` |
 | `write-unit-tests/` | Writing or updating `*-test.js` | `frontend-testing`, `frontend-testing-examples` |
 | `review-changes/` | PR or diff review | All relevant `rules/` |
+| `publish-pr-review/` | After review discussion, inline comments on the PR | — |
 | `commit-changes/` | Commit, push, or draft commit message | `commit-messages` |
 
 ## What skills are
@@ -35,6 +36,8 @@ skills/
 ├── write-unit-tests/
 │   └── SKILL.md
 ├── review-changes/
+│   └── SKILL.md
+├── publish-pr-review/
 │   └── SKILL.md
 └── commit-changes/
     └── SKILL.md
@@ -83,12 +86,13 @@ Client projects use a thin `.claude/CLAUDE.md` router that points at this repo's
 ## Global Claude Code skills
 
 ```bash
-mkdir -p ~/.claude/skills/{commit-changes,implement-changes,write-unit-tests,review-changes}
+mkdir -p ~/.claude/skills/{commit-changes,implement-changes,write-unit-tests,review-changes,publish-pr-review}
 
 ln -sfn "$PWD/skills/commit-changes/SKILL.md" ~/.claude/skills/commit-changes/SKILL.md
 ln -sfn "$PWD/skills/implement-changes/SKILL.md" ~/.claude/skills/implement-changes/SKILL.md
 ln -sfn "$PWD/skills/write-unit-tests/SKILL.md" ~/.claude/skills/write-unit-tests/SKILL.md
 ln -sfn "$PWD/skills/review-changes/SKILL.md" ~/.claude/skills/review-changes/SKILL.md
+ln -sfn "$PWD/skills/publish-pr-review/SKILL.md" ~/.claude/skills/publish-pr-review/SKILL.md
 ```
 
 Run from this repo root.

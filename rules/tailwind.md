@@ -14,6 +14,29 @@ Applies when editing component markup in any frontend repo that uses Tailwind an
 - Prefer existing design-system utilities before inventing combinations: `mx-auto`, `heading-title`, `btn-primary`, `btn-secondary`, `btn-quaternary`, `bg-shade`, etc. Match siblings in the feature folder.
 - Prefer Tailwind utilities over component-scoped CSS (`<style>` blocks, CSS modules, styled components) in new and edited markup.
 
+## No default-value utilities
+
+Do **not** add a Tailwind class that restates a CSS default or a value the element already inherits. A class is justified only when it **changes** what the browser or a parent already applies.
+
+- Check the element type and its ancestors before adding a utility.
+- Sibling styles do not inherit. A `font-bold` label does **not** make a sibling value `font-bold`.
+- Drop the `class` attribute entirely when no utilities remain.
+
+```html
+<!-- ❌ restates defaults / inheritance -->
+<div class="font-normal">{{ value }}</div>
+<div class="block text-left">{{ value }}</div>
+
+<!-- ✅ no class — div is already block, left-aligned, font-weight: 400 -->
+<div>{{ value }}</div>
+
+<!-- ✅ class changes something -->
+<div class="font-bold">{{ label }}</div>
+<div class="truncate">{{ title }}</div>
+```
+
+Common defaults to skip unless a parent changed them: `font-normal`, `text-left`, `block` on a `<div>`, `flex-row` on `flex`, `static`, `m-0` on a `<div>`.
+
 ## Sizing — use `rem`, not `px`
 
 - Prefer existing Tailwind/design-system size utilities first (`text-sm`, `text-lg`, `p-4`, `tracking-wide`, etc.).
