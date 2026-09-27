@@ -18,7 +18,7 @@ For repo-specific setup (Jest config, mount helpers, mocks), follow patterns in 
 3. Arrange mocks (services, config, child components) before mounting.
 4. Define selector helpers and a shared `wrapper` in the outermost `describe` (see `rules/frontend-testing-examples.md`).
 5. Write one `it()` per behavior using AAA structure.
-6. Trigger interactions via selector helpers or `[data-test-id="…"]` — never call `wrapper.vm` handlers directly.
+6. Trigger interactions via selector helpers or `[data-test-id="…"]` — never call `wrapper.vm` handlers directly. Add a `data-test-id` only when a test uses it; do not put an unused id on a root or wrapper.
 7. For API flows: assert the call **and** await async resolution, then assert DOM updates.
 8. After writing, verify locally: `npm run test <test-file-name>`.
 
