@@ -38,6 +38,7 @@ Before writing any code:
 - Respect feature module boundaries — pages, containers, components, services, logic, store.
 - Key-case conversion (`snake_case` ↔ `camelCase`) belongs in the **service layer only**.
 - Pure business logic in `logic/` — no Vue/Vuex imports; pass `$t` as a parameter when i18n is needed.
+- Add `data-test-id` only on elements a test queries. Do not put an unused id on a component root or wrapper.
 - If a requirement is ambiguous or missing, **stop and ask** — do not invent behavior.
 
 ## Tests

@@ -13,12 +13,13 @@ For the authoring workflow, see `skills/write-unit-tests/SKILL.md`. For examples
 ## MUST practices
 
 1. **Behavior over implementation** — assert what the component does from the user's perspective (inputs, outputs, emitted events, DOM changes). Do NOT test internal data properties or private methods.
-2. **Reliable selectors** — query DOM via **`data-test-id`**, not CSS classes, `id`, or complex DOM paths. Components under test MUST expose `data-test-id` on elements with conditional rendering or dynamic content.
+2. **Reliable selectors** — query DOM via **`data-test-id`**, not CSS classes, `id`, or complex DOM paths. Add `data-test-id` only on elements a test actually queries. Do **not** add an unused id on a root or wrapper "for later", or when a parent already exposes the hook.
    - Define **selector helpers** inside the outermost component `describe`, alongside a shared `let wrapper`.
    - Selectors MUST be functions that call `wrapper.find('[data-test-id="…"]')` so they target the current mounted instance.
    - Mount helpers MUST assign to `wrapper` (`wrapper = mount(...)`). Nested `describe`/`beforeEach` may reassign `wrapper` when a scenario needs a different mount.
    - ❌ Module-level selector strings with ad hoc local `wrapper` variables in every test.
    - ❌ CSS classes, element IDs, or DOM structure when a `data-test-id` exists.
+   - ❌ Unused `data-test-id` on a component root when tests only query inner elements (or a parent wrapper).
 3. **AAA (Arrange, Act, Assert)** — structure every test: arrange state and mocks, act on the component, assert the outcome.
 4. **Isolation via mocks** — mock complex child components, API calls, and external global services.
 5. **Single responsibility per test** — each `it()` block MUST test one specific behavior. Avoid monolithic tests with dozens of assertions.
