@@ -11,6 +11,7 @@ Applies to **Vue MFE** client projects. Match existing patterns in the target re
 
 | When editing | Apply |
 |---|---|
+| Anything, any language | `rules/general.md` |
 | Any frontend code | This file |
 | `*.vue` feature modules | `rules/vue-feature-architecture.md` |
 | Markup styling | `rules/tailwind.md` |
@@ -26,7 +27,7 @@ Applies to **Vue MFE** client projects. Match existing patterns in the target re
 2. **Braces are mandatory** — every `if`/`else`/`for`/`while` body MUST use `{}`, even single statements.
 3. **Preserve existing formatting** — never reformat or re-indent code you are not otherwise changing. A diff MUST show only lines relevant to the task.
 4. **Reuse before you build** — search for an existing component, composable, service, or logic module before writing a new one. Prefer extending an existing pattern over introducing a parallel one.
-5. **Semantic naming over structural naming** — name variables/functions after what the data or operation *means* in the domain, not the data structure it sits in. Prefer `CARRIER_SHIPPING_RATES` over generic `ITEMS`/`DATA`/`ROWS`. When an object's property name is fixed by an external contract (e.g. a UI library's `children` field), keep the required property name on the object but name the local variable for what it contains: `const cptSlotNodes = ...; return { ..., children: cptSlotNodes };`, not `const children = ...; return { ..., children };`.
+5. **Semantic naming** — see `rules/general.md`; it applies here too.
 6. **Early return over nested conditionals** — in new code, guard-clause / early-return out of a function rather than wrapping the remaining body in an `if`/`else`.
    - ❌ `if (isValid) { doThing(); if (isReady) { doOther(); } }`
    - ✅ `if (!isValid) return; doThing(); if (!isReady) return; doOther();`

@@ -7,7 +7,7 @@ description: Review frontend code changes for config, a11y, testing, and Vue con
 
 Review workflow for frontend PRs and local diffs — config, a11y, tests, Vue conventions, and PR hygiene.
 
-Before reviewing, apply all relevant rules in `rules/` (especially `vue-feature-architecture.md`, `tailwind.md`, `frontend-accessibility.md`, `frontend-testing.md`).
+Before reviewing, apply all relevant rules in `rules/` (especially `general.md`, `vue-feature-architecture.md`, `tailwind.md`, `frontend-accessibility.md`, `frontend-testing.md`).
 
 ## Workflow
 
@@ -33,10 +33,12 @@ Before reviewing, apply all relevant rules in `rules/` (especially `vue-feature-
 - [ ] SFC convention matches the repo (Options API unless repo has migrated).
 - [ ] JSDoc on public props / composables describes shape, not just `{Object}`.
 - [ ] Single source of truth for arrays / enums referenced twice.
+- [ ] No near-identical `if`/`switch` branches that differ only in 1-2 values (e.g. one `$router.push`/action repeated per case with just a different route param or flag) — collapse into a lookup map keyed by the discriminant, with one call site reading from it.
 - [ ] `git mv` used for legacy renames to preserve history.
 - [ ] Spec/filenames include ticket code when scoped to one ticket.
 - [ ] Feature module boundaries respected (`pages/containers/components/services/logic/store`).
 - [ ] Key-case conversion only in service layer, not components or `logic/`.
+- [ ] New variables/functions precisely name the domain concept they hold, especially when reading a specific API field or prop — flag a vague paraphrase that drops the distinguishing part of the source name. See `rules/general.md`. Applies even when a diff only *extracts* an existing variable into a new function's parameter — check the new signature on its own terms (would this name make sense to someone who never saw the call site?), don't wave it through just because the name pre-existed in the file.
 
 ## Config vs code
 

@@ -8,6 +8,7 @@ For task workflows (implement, test, review, commit), see `skills/`.
 
 | Rule | Trigger | Scope |
 |---|---|---|
+| [general.md](./general.md) | `alwaysApply: true` | Any language, any project — naming and other language-agnostic conventions |
 | [frontend-general.md](./frontend-general.md) | `alwaysApply: true` | All frontend work — code style, rules index |
 | [vue-feature-architecture.md](./vue-feature-architecture.md) | `**/*.vue` | Feature module boundaries, services, platform access |
 | [tailwind.md](./tailwind.md) | `*.{vue,html,jsx,tsx}` | Tailwind utilities, CSS modules, sizing |
@@ -15,16 +16,19 @@ For task workflows (implement, test, review, commit), see `skills/`.
 | [frontend-testing.md](./frontend-testing.md) | `**/*-test.js` | Unit test MUSTs (AAA, BDD, mocks, design-system stubs) |
 | [frontend-testing-examples.md](./frontend-testing-examples.md) | Reference (not auto-loaded) | Selector helpers, HTTP assertion examples |
 | [commit-messages.md](./commit-messages.md) | On demand | Commit message format, branch naming |
+| [dotnet-general.md](./dotnet-general.md) | `alwaysApply: true` | .NET/C# backend work — code style, async, EF Core, error handling |
+| [dotnet-testing.md](./dotnet-testing.md) | `**/*Tests.cs` | MSTest/NUnit/xUnit MUSTs (AAA, mocking, integration test hygiene) |
 
 ## Rules ↔ skills
 
 | Rules (MUSTs) | Skill (workflow) |
 |---|---|
-| `frontend-general`, `vue-feature-architecture`, `tailwind`, `frontend-accessibility` | `implement-changes` |
+| `general`, `frontend-general`, `vue-feature-architecture`, `tailwind`, `frontend-accessibility` | `implement-changes` |
 | `frontend-testing` | `write-unit-tests` |
 | All relevant rules | `review-changes` |
 | — | `publish-pr-review` |
 | `commit-messages` | `commit-changes` |
+| `general`, `dotnet-general`, `dotnet-testing` | `review-changes-dotnet` |
 
 ## What rules are
 
@@ -51,13 +55,16 @@ For task workflows (implement, test, review, commit), see `skills/`.
 ```
 rules/
 ├── README.MD
+├── general.md                 ← always on, language-agnostic
 ├── frontend-general.md        ← always on
 ├── vue-feature-architecture.md
 ├── tailwind.md
 ├── frontend-accessibility.md
 ├── frontend-testing.md
 ├── frontend-testing-examples.md
-└── commit-messages.md
+├── commit-messages.md
+├── dotnet-general.md
+└── dotnet-testing.md
 ```
 
 Rule files use `.md` with YAML frontmatter:
