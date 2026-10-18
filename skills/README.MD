@@ -12,6 +12,7 @@ Skills define **workflows and procedures** the AI agent follows when performing 
 | `review-changes-dotnet/` | PR or diff review (.NET/C# backend) | `dotnet-general`, `dotnet-testing` |
 | `publish-pr-review/` | After review discussion, inline comments on the PR | — |
 | `commit-changes/` | Commit, push, or draft commit message | `commit-messages` |
+| `address-pr-feedback/` | Review comments on your own PR: discuss, fix, test, amend, push (asks first), update PR/plan, reply and resolve | `commit-messages` |
 | `draft-release-announcement/` | Draft a release announcement from a version diff | `commit-messages` |
 | `update-release-document/` | Fill the release-document questionnaire for the user's own PRs | — |
 
